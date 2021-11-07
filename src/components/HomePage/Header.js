@@ -1,11 +1,11 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
+    BrowserRouter as Router,
+    Route,
+    Switch,
 } from 'react-router-dom';
-import '../css/index.css';
+import '../../css/index.css';
+
 
 function Header() {
     return (
