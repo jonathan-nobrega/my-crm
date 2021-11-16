@@ -1,16 +1,17 @@
 import React from 'react'
 import ListRecord from './ListRecord'
-import Customers from '../../data/customers'
+import Customers from '../../../data/customers'
 
 
 function ListPanel() {
     return (
         <div>
-            <h2>Section title</h2>
+            <h2>All projects</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
+                            <th scope="col">Status</th>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Company</th>
@@ -22,6 +23,7 @@ function ListPanel() {
                         {Customers.map((customer) => {
                             return (
                                 <ListRecord
+                                    status={customer.status}
                                     id={customer._id}
                                     name={customer.name}
                                     company={customer.company}

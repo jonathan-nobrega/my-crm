@@ -1,9 +1,9 @@
 import React from "react";
-import ClientHeader from '../components/ClientPage/ClientHeader'
-import SideBar from '../components/ClientPage/SideBar'
-import MainPanel from '../components/ClientPage/MainPanel'
-import ListPanel from '../components/ClientPage/ListPanel'
-import '../css/clientPage.css';
+import ClientHeader from '../../components/client/ClientHeader'
+import SideBar from '../../components/client/SideBar'
+import MainPanel from '../../components/client/customers/MainPanel'
+import ListPanel from '../../components/client/customers/ListPanel'
+import '../../css/clientPage.css';
 
 function asd() {
     return (

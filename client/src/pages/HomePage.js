@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../components/HomePage/Header";
-import Hero from "../components/HomePage/Hero";
-import Footer from "../components/HomePage/Footer";
+import Header from "../components/homePage/Header";
+import Hero from "../components/homePage/Hero";
+import Footer from "../components/homePage/Footer";
 import '../css/index.css';
 
 
