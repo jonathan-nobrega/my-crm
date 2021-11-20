@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Redirect } from 'react-router'
 import '../css/signin.css';
 // import useToken from './useToken'
 import * as useToken from './useToken'
-import CustomersPage from './client/CustomersPage'
 
 
 async function loginUser(credentials) {
@@ -21,9 +21,8 @@ async function loginUser(credentials) {
 
 function LoginPage() {
 
-    // const { token, setToken } = useToken();
     const [token, setToken] = useState(useToken.getToken)
-    console.log('o token no inicio é '+token)
+    console.log('o token no inicio é ' + token)
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -35,19 +34,15 @@ function LoginPage() {
             password
         });
         setToken(id);
-        console.log('o id é '+id)
+        console.log('o id é ' + id)
         console.log(token)
     }
 
-    
+
     if (token !== undefined) {
 
         console.log("Token de autenticação é:" + token)
-        return (
-            <div>
-                <CustomersPage token={token} />
-            </div>
-        )
+        return <Redirect to="/home" />
     }
     if (token === undefined) {
 

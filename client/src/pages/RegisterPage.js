@@ -25,6 +25,7 @@ function RegisterPage() {
             email,
             password
         });
+        console.log(token)
     }
 
     return (
