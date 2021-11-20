@@ -25,7 +25,7 @@ function Header() {
 
                 <div class="col-md-3 text-end">
                     <a href="/login" type="button" class="btn btn-outline-primary mr-2">Login</a>
-                    <button type="button" class="btn btn-primary">Sign-up</button>
+                    <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
                 </div>
             </header>
         </div>

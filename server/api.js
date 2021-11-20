@@ -1,17 +1,16 @@
 const express = require('express')
-// const bodyParser = require('body-parser')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const encrypt = require('mongoose-encryption')
+const app = express();
 
-const app = express()
+app.use(cors());
 app.use(express.static("public"))
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-const frontEndInit = "localhost"
-
-mongoose.connect("mongodb://localhost:27017/crmUsers")
+mongoose.connect("mongodb://localhost:27017/userDB")
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -21,34 +20,45 @@ const secret = "Thisisourlittlesecret."
 userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] })
 const User = new mongoose.model("User", userSchema)
 
+// ==> preciso registrar um usuario usando o hash primeiro, somente assim
+// o mongoose vai encontrar um usuario com o password que estou procurando
+// com o uso do 'secret'
+
 app.post("/register", (req, res) => {
 
     const newUser = new User({
-        email: req.body.username,
+        email: req.body.email,
         password: req.body.password
     })
     newUser.save((err) => {
         if (err) {
             console.log(err)
         } else {
-            res.render("secrets")
+            console.log("registro feito")
         }
     })
 })
 
-app.post("/login", (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+app.post("/login", async (req, res) => {
 
-    User.findOne({ email: username }, (err, foundUser) => {
+    const email = req.body.email
+    const password = req.body.password
+    console.log(password)
+
+    let token = null
+
+    User.findOne({ email: email }, (err, foundUser) => {
         if (err) {
+            console.log('deu erro em')
             console.log(err)
         } else {
 
             if (foundUser.password === password) {
-                res.send("found Login for" + username)
+                console.log("correct password for " + email + ": " + foundUser._id)
+                res.send(foundUser._id)
             } else {
-                res.send("can't find user" + username)
+                console.log("wrong password for " + email + ": " + foundUser._id)
+                res.send(null)
             }
         }
     })
