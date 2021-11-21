@@ -5,6 +5,7 @@ import MainPanel from '../../components/client/customers/MainPanel'
 import ListPanel from '../../components/client/customers/ListPanel'
 import '../../css/clientPage.css';
 
+
 function asd() {
     return (
         <div>
