@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import ListRecord from './ListRecord'
 import Customers from '../../../data/customers'
+// import https from 'https' 
 
 
 function ListPanel() {
+
+    async function customers() {
+        return await fetch('http://localhost:8000/customers').then(a => a.json())
+    }
+
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        customers()
+            .then(a =>
+                setData(a)
+            );
+    }, [])
+
     return (
         <div>
             <h2>All customers</h2>
@@ -20,18 +35,20 @@ function ListPanel() {
                         </tr>
                     </thead>
                     <tbody>
-                        {Customers.map((customer) => {
-                            return (
-                                <ListRecord
-                                    status={customer.status}
-                                    id={customer._id}
-                                    name={customer.name}
-                                    company={customer.company}
-                                    email={customer.email}
-                                    phone={customer.phone}
-                                />
-                            )
-                        })}
+                        {
+                            data.map((customer) => {
+                                return (
+                                    <ListRecord
+                                        status={'active'}
+                                        id={customer._id}
+                                        name={customer.name}
+                                        company={customer.company}
+                                        email={customer.email}
+                                        phone={customer.phone}
+                                    />
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>

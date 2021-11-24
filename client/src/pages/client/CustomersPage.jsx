@@ -6,7 +6,8 @@ import ListPanel from '../../components/client/customers/ListPanel'
 import '../../css/clientPage.css';
 
 
-function asd() {
+export default function CustomerPage() {
+
     return (
         <div>
             <body>
@@ -20,6 +21,4 @@ function asd() {
         </div>
     )
 };
-
-export default asd;
 

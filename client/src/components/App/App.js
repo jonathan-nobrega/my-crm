@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,9 +9,9 @@ import ClientPage from '../../pages/client/CustomersPage';
 import RegisterPage from '../../pages/RegisterPage';
 
 
-class App extends Component {
-  render() {
-    return (
+export default function App() {
+  return (
+    <div>
       <Router>
         <div className="App">
           <div id="page-body">
@@ -23,8 +22,8 @@ class App extends Component {
           </div>
         </div>
       </Router>
-    );
-  }
-}
+    </div>
 
-export default App;
+  );
+
+}

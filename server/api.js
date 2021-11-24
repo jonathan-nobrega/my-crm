@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const encrypt = require('mongoose-encryption')
 const app = express();
@@ -11,18 +10,25 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect("mongodb://localhost:27017/userDB")
+const secret = "Thisisourlittlesecret."
+
 
 const userSchema = new mongoose.Schema({
     email: String,
     password: String
 })
-const secret = "Thisisourlittlesecret."
 userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] })
 const User = new mongoose.model("User", userSchema)
 
-// ==> preciso registrar um usuario usando o hash primeiro, somente assim
-// o mongoose vai encontrar um usuario com o password que estou procurando
-// com o uso do 'secret'
+const customerSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    code: String,
+    phone: String,
+    company: String
+})
+const Customer = new mongoose.model("Customer", customerSchema)
+
 
 app.post("/register", (req, res) => {
 
@@ -34,17 +40,15 @@ app.post("/register", (req, res) => {
         if (err) {
             console.log(err)
         } else {
-            console.log("registro feito")
+            console.log("new user registered")
         }
     })
 })
 
 app.post("/login", async (req, res) => {
 
-    const email = req.body.email
-    const password = req.body.password
-    console.log(password)
 
+    const {email, password} = req.body
     let token = null
 
     User.findOne({ email: email }, (err, foundUser) => {
@@ -62,6 +66,36 @@ app.post("/login", async (req, res) => {
             }
         }
     })
+})
+
+app.get("/customers", async (req, res) => {
+
+    console.log('entrou no customers')
+    const customers = await Customer.find().where('customers')
+    const response = JSON.stringify(customers)
+    // console.log(response)
+    res.send(response)
+})
+
+app.post("/addCustomer", async (req, res) => {
+
+    const {name, email, code, phone, company} = req.body
+
+    const newCustomer = new Customer({
+        name: name,
+        email: email,
+        code: code,
+        phone: phone,
+        company: company
+    })
+    newCustomer.save((err) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("new customer added")
+        }
+    })
+
 })
 
 app.listen(8000, function () {

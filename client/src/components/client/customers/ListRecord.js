@@ -2,6 +2,8 @@ import React from 'react'
 
 
 function ListRecord(props) {
+    // console.log('entrou no ListRecord')
+    // console.log(props)
     return (
         <tr>
             <td>{props.status}</td>            
