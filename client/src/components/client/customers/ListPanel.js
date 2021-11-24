@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ListRecord from './ListRecord'
-import Customers from '../../../data/customers'
-// import https from 'https' 
 
 
 function ListPanel() {
@@ -22,8 +20,8 @@ function ListPanel() {
     return (
         <div>
             <h2>All customers</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
+            <div className="table-responsive">
+                <table className="table table-striped table-sm">
                     <thead>
                         <tr>
                             <th scope="col">Status</th>
@@ -39,6 +37,7 @@ function ListPanel() {
                             data.map((customer) => {
                                 return (
                                     <ListRecord
+                                        key={customer._id}
                                         status={'active'}
                                         id={customer._id}
                                         name={customer.name}
